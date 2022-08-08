@@ -233,7 +233,7 @@ namespace TextMagicClient.Client
                 _basePath = value;
                 // pass-through to ApiClient if it's set.
                 if(_apiClient != null) {
-                    _apiClient.RestClient.BaseUrl = new Uri(_basePath);
+                    _apiClient.RestClient.Options.BaseUrl = new Uri(_basePath);
                 }
             }
         }
@@ -249,8 +249,8 @@ namespace TextMagicClient.Client
         public virtual int Timeout
         {
             
-            get { return ApiClient.RestClient.Timeout; }
-            set { ApiClient.RestClient.Timeout = value; }
+            get { return ApiClient.RestClient.Options.MaxTimeout; }
+            set { ApiClient.RestClient.Options.MaxTimeout = value; }
         }
 
         /// <summary>
@@ -278,10 +278,8 @@ namespace TextMagicClient.Client
         /// <returns>API key with prefix.</returns>
         public string GetApiKeyWithPrefix(string apiKeyIdentifier)
         {
-            var apiKeyValue = "";
-            ApiKey.TryGetValue (apiKeyIdentifier, out apiKeyValue);
-            var apiKeyPrefix = "";
-            if (ApiKeyPrefix.TryGetValue (apiKeyIdentifier, out apiKeyPrefix))
+            ApiKey.TryGetValue(apiKeyIdentifier, out string apiKeyValue);
+            if (ApiKeyPrefix.TryGetValue(apiKeyIdentifier, out string apiKeyPrefix))
                 return apiKeyPrefix + " " + apiKeyValue;
             else
                 return apiKeyValue;
@@ -317,7 +315,7 @@ namespace TextMagicClient.Client
                 }
 
                 // check if the path contains directory separator at the end
-                if (value[value.Length - 1] == Path.DirectorySeparatorChar)
+                if (value[^1] == Path.DirectorySeparatorChar)
                 {
                     _tempFolderPath = value;
                 }
@@ -363,11 +361,7 @@ namespace TextMagicClient.Client
             get { return _apiKeyPrefix; }
             set
             {
-                if (value == null)
-                {
-                    throw new InvalidOperationException("ApiKeyPrefix collection may not be null.");
-                }
-                _apiKeyPrefix = value;
+                _apiKeyPrefix = value ?? throw new InvalidOperationException("ApiKeyPrefix collection may not be null.");
             }
         }
 
@@ -380,11 +374,7 @@ namespace TextMagicClient.Client
             get { return _apiKey; }
             set
             {
-                if (value == null)
-                {
-                    throw new InvalidOperationException("ApiKey collection may not be null.");
-                }
-                _apiKey = value;
+                _apiKey = value ?? throw new InvalidOperationException("ApiKey collection may not be null.");
             }
         }
 

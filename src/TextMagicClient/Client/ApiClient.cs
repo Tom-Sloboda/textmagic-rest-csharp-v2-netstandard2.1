@@ -28,7 +28,7 @@ namespace TextMagicClient.Client
     /// </summary>
     public partial class ApiClient
     {
-        private JsonSerializerSettings serializerSettings = new JsonSerializerSettings
+        private readonly JsonSerializerSettings serializerSettings = new JsonSerializerSettings
         {
             ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
         };
@@ -37,14 +37,14 @@ namespace TextMagicClient.Client
         /// Allows for extending request processing for <see cref="ApiClient"/> generated code.
         /// </summary>
         /// <param name="request">The RestSharp request object</param>
-        partial void InterceptRequest(IRestRequest request);
+        partial void InterceptRequest(RestRequest request);
 
         /// <summary>
         /// Allows for extending response processing for <see cref="ApiClient"/> generated code.
         /// </summary>
         /// <param name="request">The RestSharp request object</param>
         /// <param name="response">The RestSharp response object</param>
-        partial void InterceptResponse(IRestRequest request, IRestResponse response);
+        partial void InterceptResponse(RestRequest request, RestResponse response);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class
@@ -75,7 +75,7 @@ namespace TextMagicClient.Client
         /// <param name="basePath">The base path.</param>
         public ApiClient(String basePath = "https://rest.textmagic.com")
         {
-           if (String.IsNullOrEmpty(basePath))
+            if (String.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");
 
             RestClient = new RestClient(basePath);
@@ -116,25 +116,25 @@ namespace TextMagicClient.Client
             var request = new RestRequest(path, method);
 
             // add path parameter, if any
-            foreach(var param in pathParams)
+            foreach (var param in pathParams)
                 request.AddParameter(param.Key, param.Value, ParameterType.UrlSegment);
 
             // add header parameter, if any
-            foreach(var param in headerParams)
+            foreach (var param in headerParams)
                 request.AddHeader(param.Key, param.Value);
 
             // add query parameter, if any
-            foreach(var param in queryParams)
+            foreach (var param in queryParams)
                 request.AddQueryParameter(param.Key, param.Value);
 
             // add form parameter, if any
-            foreach(var param in formParams)
+            foreach (var param in formParams)
                 request.AddParameter(param.Key, param.Value);
 
             // add file parameter, if any
-            foreach(var param in fileParams)
+            foreach (var param in fileParams)
             {
-                request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentType);
+                request.AddFile(param.Value.Name, param.Value.GetFile, param.Value.FileName, param.Value.ContentType);
             }
 
             if (postBody != null) // http body (model or byte[]) parameter
@@ -169,16 +169,16 @@ namespace TextMagicClient.Client
                 pathParams, contentType);
 
             // set timeout
-            
-            RestClient.Timeout = Configuration.Timeout;
+
+            RestClient.Options.MaxTimeout = Configuration.Timeout;
             // set user agent
-            RestClient.UserAgent = Configuration.UserAgent;
+            RestClient.Options.UserAgent = Configuration.UserAgent;
 
             InterceptRequest(request);
             var response = RestClient.Execute(request);
             InterceptResponse(request, response);
 
-            return (Object) response;
+            return (Object)response;
         }
         /// <summary>
         /// Makes the asynchronous HTTP request.
@@ -203,7 +203,7 @@ namespace TextMagicClient.Client
                 path, method, queryParams, postBody, headerParams, formParams, fileParams,
                 pathParams, contentType);
             InterceptRequest(request);
-            var response = await RestClient.ExecuteTaskAsync(request);
+            var response = await RestClient.ExecuteAsync(request);
             InterceptResponse(request, response);
             return (Object)response;
         }
@@ -246,13 +246,13 @@ namespace TextMagicClient.Client
                 // Defaults to an ISO 8601, using the known as a Round-trip date/time pattern ("o")
                 // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8
                 // For example: 2009-06-15T13:45:30.0000000
-                return ((DateTime)obj).ToString (Configuration.DateTimeFormat);
+                return ((DateTime)obj).ToString(Configuration.DateTimeFormat);
             else if (obj is DateTimeOffset)
                 // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
                 // Defaults to an ISO 8601, using the known as a Round-trip date/time pattern ("o")
                 // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8
                 // For example: 2009-06-15T13:45:30.0000000
-                return ((DateTimeOffset)obj).ToString (Configuration.DateTimeFormat);
+                return ((DateTimeOffset)obj).ToString(Configuration.DateTimeFormat);
             else if (obj is IList)
             {
                 var flattenedString = new StringBuilder();
@@ -265,7 +265,7 @@ namespace TextMagicClient.Client
                 return flattenedString.ToString();
             }
             else
-                return Convert.ToString (obj);
+                return Convert.ToString(obj);
         }
 
         /// <summary>
@@ -274,9 +274,9 @@ namespace TextMagicClient.Client
         /// <param name="response">The HTTP response.</param>
         /// <param name="type">Object type.</param>
         /// <returns>Object representation of the JSON string.</returns>
-        public object Deserialize(IRestResponse response, Type type)
+        public object Deserialize(RestResponse response, Type type)
         {
-            IList<Parameter> headers = response.Headers;
+            IList<HeaderParameter> headers = response.Headers.ToList();
             if (type == typeof(byte[])) // return byte array
             {
                 return response.RawBytes;
@@ -308,7 +308,7 @@ namespace TextMagicClient.Client
 
             if (type.Name.StartsWith("System.Nullable`1[[System.DateTime")) // return a datetime object
             {
-                return DateTime.Parse(response.Content,  null, System.Globalization.DateTimeStyles.RoundtripKind);
+                return DateTime.Parse(response.Content, null, System.Globalization.DateTimeStyles.RoundtripKind);
             }
 
             if (type == typeof(String) || type.Name.StartsWith("System.Nullable")) // return primitive type
@@ -427,7 +427,7 @@ namespace TextMagicClient.Client
         /// <returns>Byte array</returns>
         public static byte[] ReadAsBytes(Stream inputStream)
         {
-            byte[] buf = new byte[16*1024];
+            byte[] buf = new byte[16 * 1024];
             using (MemoryStream ms = new MemoryStream())
             {
                 int count;

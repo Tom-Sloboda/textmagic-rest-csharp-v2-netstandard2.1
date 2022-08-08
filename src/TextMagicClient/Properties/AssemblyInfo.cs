@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TextMagic Ltd")]
 [assembly: AssemblyProduct("TextMagic")]
-[assembly: AssemblyCopyright("Copyright ©  2015 TextMagic Ltd")]
+[assembly: AssemblyCopyright("Copyright © 2015 TextMagic Ltd")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.1588")]
-[assembly: AssemblyFileVersion("2.0.1588")]
+[assembly: AssemblyVersion("2.0.1589")]
+[assembly: AssemblyFileVersion("2.0.1589")]
