@@ -1,3 +1,7 @@
+# Minimal Support
+
+This library has only been ported to .Net Standard 2.1 and the RestSharp Dependancy has been updated to resolve some of the security flaws present in the older versions.
+
 [comment]: <> (HEAD)
 # TextMagic C# / .Net SDK
 
@@ -10,13 +14,12 @@ TextMagic’s application programming interface (API) provides the communication
 [comment]: <> (/HEAD)
 
 ## Frameworks supported
-- .NET 4.0 or later
-- Windows Phone 7.1 (Mango)
+- .NET Standard 2.1
 
 ## Dependencies
-- [RestSharp](https://www.nuget.org/packages/RestSharp) - 105.1.0 or later
-- [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json/) - 7.0.0 or later
-- [JsonSubTypes](https://www.nuget.org/packages/JsonSubTypes/) - 1.2.0 or later
+- [RestSharp](https://www.nuget.org/packages/RestSharp)
+- [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json/)
+- [JsonSubTypes](https://www.nuget.org/packages/JsonSubTypes/)
 
 The DLLs included in the package may not be the latest versions. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
 ```
