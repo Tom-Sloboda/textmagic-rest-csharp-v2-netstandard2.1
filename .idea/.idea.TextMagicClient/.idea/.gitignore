@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.TextMagicClient.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../:\projects\textmagic-rest-csharp-v2\.idea\.idea.TextMagicClient\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
