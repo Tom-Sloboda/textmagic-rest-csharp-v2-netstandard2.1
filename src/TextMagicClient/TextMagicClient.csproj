@@ -4,6 +4,11 @@
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>TextMagicV2Standard</Title>
+    <Description>Text Magic V2 Rest API Converted to .NET Standard 2.1</Description>
+    <PackageProjectUrl>https://github.com/Grimston/textmagic-rest-csharp-v2</PackageProjectUrl>
+    <Authors> textmagic,Grimston</Authors>
   </PropertyGroup>
 
   <ItemGroup>

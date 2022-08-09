@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A40B87E4-88AA-4442-984A-5ED98534AE56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextMagicClient", "src\TextMagicClient\TextMagicClient.csproj", "{26D5FD02-BC14-4DBE-A77A-5DCD3A50EE5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextMagicClient.Test", "src\TextMagicClient.Test\TextMagicClient.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26D5FD02-BC14-4DBE-A77A-5DCD3A50EE5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26D5FD02-BC14-4DBE-A77A-5DCD3A50EE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26D5FD02-BC14-4DBE-A77A-5DCD3A50EE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26D5FD02-BC14-4DBE-A77A-5DCD3A50EE5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{26D5FD02-BC14-4DBE-A77A-5DCD3A50EE5C} = {A40B87E4-88AA-4442-984A-5ED98534AE56}
+		{19F1DEBC-DE5E-4517-8062-F000CD499087} = {A40B87E4-88AA-4442-984A-5ED98534AE56}
+	EndGlobalSection
+EndGlobal
