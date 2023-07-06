@@ -7,9 +7,20 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>TextMagicV2Standard</Title>
     <Description>Text Magic V2 Rest API Converted to .NET Standard 2.1</Description>
-    <PackageProjectUrl>https://github.com/Grimston/textmagic-rest-csharp-v2</PackageProjectUrl>
-    <Authors> textmagic,Grimston</Authors>
+    <PackageProjectUrl>https://www.textmagic.com/</PackageProjectUrl>
+    <Authors> textmagic,Grimston, TomSloboda</Authors>
+    <PackageId>TextMagicClientNetStandard</PackageId>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Tom-Sloboda/textmagic-rest-csharp-v2-netstandard2.1</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
